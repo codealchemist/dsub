@@ -1,0 +1,40 @@
+{
+  "name": "dsub",
+  "version": "1.0.0",
+  "description": "An awesome subtitle downloader.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard",
+    "test-focus": "standard-focus"
+  },
+  "bin": {
+    "dsub": "src/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codealchemist/dsub.git"
+  },
+  "keywords": [
+    "subtitles",
+    "download"
+  ],
+  "author": "Alberto Miranda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codealchemist/dsub/issues"
+  },
+  "homepage": "https://github.com/codealchemist/dsub#readme",
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "elapsed-time": "0.0.1",
+    "gunzip-file": "^0.1.1",
+    "mkdirp": "^0.5.1",
+    "ora": "^1.3.0",
+    "printii": "^1.0.0",
+    "request": "^2.81.0",
+    "run-series": "^1.1.4",
+    "standard-focus": "^1.1.2",
+    "subtitler": "^2.6.0",
+    "unzip": "^0.1.11"
+  }
+}
