@@ -1,6 +1,8 @@
 # dsub
 An awesome subtitle downloader.
 
+![screenshot](https://cldup.com/fb3MzuvUuk.gif)
+
 ## CLI install
 
 `npm install -g dsub`
