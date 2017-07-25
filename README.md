@@ -1,5 +1,5 @@
 # dsub
-An awesome subtitle downloader.
+An awesome subtitles downloader.
 
 ![screenshot](https://cldup.com/fb3MzuvUuk.gif)
 

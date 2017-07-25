@@ -1,7 +1,7 @@
 {
   "name": "dsub",
   "version": "1.0.0",
-  "description": "An awesome subtitle downloader.",
+  "description": "An awesome subtitles downloader.",
   "main": "index.js",
   "scripts": {
     "test": "standard",
