@@ -3,6 +3,23 @@ An awesome subtitles downloader.
 
 ![screenshot](https://cldup.com/fb3MzuvUuk.gif)
 
+## FAQ
+#### What it does?
+
+It downloads subtitles for movies and TV shows.
+
+#### Which subtitles sources does it use?
+Right now it uses OpenSubtitles and the plan is to add more sources in the future.
+
+#### How it works?
+
+First, it tries to do an exact match for the video files you're searching subs for.
+
+If no subs are found, it runs a query using the video filename.
+
+Subs are downloaded in the `subs` folder by default, where they are automatically
+read by [VLC](https://www.videolan.org/vlc/), one of the best video players out there.
+
 ## CLI install
 
 `npm install -g dsub`
@@ -29,13 +46,7 @@ Defaults to current directory.
 `dsub --dest='~/Movies/sintel'`: Download subs in `~/Movies/sintel`.
 Defaults to `./subs`, creates the folder if it doesn't exist.
 
-`dsub --lang='spa'`: Download spanish subs.
-
-### Notes
-
-Uses OpenSubtitles API.
-
-Use these [language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes) as reference.
+`dsub --lang='spa'`: Download spanish subs. Use these [language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes) as reference.
 
 ## Programatic usage
 

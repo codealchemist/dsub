@@ -47,6 +47,17 @@ class Dsub extends EventEmitter {
     process.exit()
   }
 
+  getSearchMethod ({method, file, token}) {
+    const methods = {
+      'exact': () => opensubtitles.api.searchForFile(token, this.lang, file),
+      'query': () => opensubtitles.api.search(token, this.lang, {
+        query: file
+      })
+    }
+
+    return methods[method]
+  }
+
   search (file, callback) {
     this.emit('searching', {file})
 
@@ -54,23 +65,29 @@ class Dsub extends EventEmitter {
     opensubtitles.api.login()
       .then(
         (token) => {
-          // this.log('Login ok:', token)
           this.emit('login', {file, token})
-
-          // Search subtitles.
-          opensubtitles.api.search(token, this.lang, {
-            query: file
-          })
-          .then(
-            (results) => callback(null, results),
-            (err) => callback(err)
-          )
+          this.runSearch({file, callback, token})
         },
         (err) => {
           this.log('Search error: unable to login.', err)
           this.emit('error', err)
         }
       )
+  }
+
+  runSearch ({file, callback, token, method = 'exact'}) {
+    this.getSearchMethod({method, token, file})()
+    .then(
+      (results) => {
+        if (method === 'exact' && !results.length) {
+          this.runSearch({file, callback, token, method: 'query'})
+          return
+        }
+
+        return callback(null, results)
+      },
+      (err) => callback(err)
+    )
   }
 
   download () {
