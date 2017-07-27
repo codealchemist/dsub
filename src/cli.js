@@ -39,6 +39,13 @@ dsub
     spinner.text = `${chalk.white(total)} subs downloaded for: ${chalk.blue(file)}\n`
   })
   .on('done', ({time, totalFiles, totalSubs}) => {
+    // If there are no subs we already shown a fail message.
+    // Avoid displaying additional status info.
+    if (totalSubs === 0) {
+      spinner.stop()
+      process.exit()
+    }
+
     let filesStr = 'files'
     if (totalFiles === 1) filesStr = 'file'
 
@@ -57,10 +64,10 @@ dsub
     }
   })
   .on('empty', ({file}) => {
-    spinner.fail(`No subtitles found for ${file}.\n`).start()
+    spinner.fail(`No subtitles found for ${chalk.blue(file)}.\n`).start()
   })
   .on('error', (error) => {
-    console.error('Oops, the following error occurred:', error)
+    console.error('\nOops, the following error occurred:\n', error)
     process.exit()
   })
   .download()
