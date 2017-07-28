@@ -48,6 +48,8 @@ Defaults to `./subs`, creates the folder if it doesn't exist.
 
 `dsub --lang='spa'`: Download spanish subs. Use these [language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes) as reference.
 
+`dsub --all`: Ignores exact matching and uses a query to download all available subs.
+
 ## Programatic usage
 
 ```

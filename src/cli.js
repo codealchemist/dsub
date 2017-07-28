@@ -13,12 +13,13 @@ const noExtract = args.noExtract
 const name = args.name
 const debug = args.debug
 const ignore = args.ignore
+const all = args.all
 
 printii()
 
 const errors = []
 const spinner = ora().start()
-const dsub = new Dsub({name, src, dest, lang, noExtract, debug, ignore})
+const dsub = new Dsub({name, src, dest, lang, noExtract, debug, ignore, all})
 dsub
   .on('searching', ({file}) => {
     spinner.text = `Searching ${chalk.white(lang)} subs for: ${chalk.blue(file)}`
@@ -65,6 +66,11 @@ dsub
   })
   .on('empty', ({file}) => {
     spinner.fail(`No subtitles found for ${chalk.blue(file)}.\n`).start()
+  })
+  .on('no-videos', ({src}) => {
+    if (src === '.') src = 'current path'
+    spinner.fail(`No video files found on ${chalk.blue(src)}.\n`)
+    process.exit()
   })
   .on('error', (error) => {
     console.error('\nOops, the following error occurred:\n', error)

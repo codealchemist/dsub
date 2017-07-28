@@ -8,7 +8,7 @@ const series = require('run-series')
 const opensubtitles = require('subtitler')
 
 class Dsub extends EventEmitter {
-  constructor ({name, src, dest, lang = 'spa', noExtract = false, timeout = 5000, debug, ignore}) {
+  constructor ({name, src, dest, lang = 'spa', noExtract = false, timeout = 5000, debug, ignore, all}) {
     super()
     this.name = name
     this.src = src
@@ -18,6 +18,7 @@ class Dsub extends EventEmitter {
     this.timeout = timeout
     this.debug = debug
     this.ignore = ignore
+    this.all = all
   }
 
   getVideoFiles (src, callback) {
@@ -39,12 +40,7 @@ class Dsub extends EventEmitter {
   }
 
   noVideos () {
-    let src = this.src
-    if (src === '.') src = 'current directory'
-    this.log(`
-      Oops... There are no video files in ${src}.
-    `)
-    process.exit()
+    this.emit('no-videos', {src: this.src})
   }
 
   getSearchMethod ({method, file, token}) {
@@ -55,6 +51,7 @@ class Dsub extends EventEmitter {
       })
     }
 
+    if (this.all) return methods.query
     return methods[method]
   }
 
@@ -108,7 +105,7 @@ class Dsub extends EventEmitter {
 
     // Search subs for all video files in folder.
     this.getVideoFiles(this.src, (files) => {
-      if (!files.length) this.noVideos()
+      if (!files.length) return this.noVideos()
 
       // Ensure subs folder exists.
       mkdirp(this.dest, (err) => {
